@@ -22,8 +22,8 @@ chrome.runtime.onStartup.addListener(() => {
 const Unsplash = require("unsplash-js").default;
 const unsplash = new Unsplash({
   applicationId:
-    "66c0dd89cb807527e1a2131bfddcfb459902fc59acba9b0bca39a59223b9f17b",
-  secret: "da794a4d8bfbe3ac98b166cdce174cec0afd185d52de15b589e1928291e71a4d"
+    "~",
+  secret: "~"
 });
 
 unsplash.photos
