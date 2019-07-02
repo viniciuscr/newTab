@@ -1,0 +1,46 @@
+{
+  "name": "Banri Tab",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "New Tab para banrisulenses",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+ 
+  "background": {
+    "scripts": [
+      "background.js",
+      "override.js",
+      "browser_action.js"
+    ],
+    "persistent": false
+  },
+
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "browser action demo",
+    "default_popup": "browser_action.html"
+  },
+  "chrome_url_overrides": {
+    "newtab": "override.html"
+  },
+  "permissions": [
+    "bookmarks",
+    "clipboardRead",
+    "clipboardWrite",
+    "contentSettings",
+    "contextMenus",
+    "history",
+    "tabs",
+    "storage",
+    "notifications",
+    "https://intranet.corp.banrisul.com.br/*",
+    "https://source.unsplash.com/*"
+  ],
+  "omnibox": {
+    "keyword": "banritab"
+  }
+}
