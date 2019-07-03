@@ -7,25 +7,34 @@ chrome.tabs.onCreated.addListener(tab => {
   );
 });
 //cache on startup chrome
-chrome.runtime.onStartup.addListener(() => {
-  fetch("https://source.unsplash.com/daily", { cache: "force-cache" })
-    .then(response => response.blob({ type: "image/jpg" }))
-    .then(img => {
-      var reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.onloadend = function() {
-        base64data = reader.result;
-        chrome.storage.local.set({ img: base64data });
-      };
-    });
-});
-const Unsplash = require("unsplash-js").default;
-const unsplash = new Unsplash({
-  applicationId:
-    "~",
-  secret: "~"
-});
+chrome.windows.onCreated.addListener(() => {
+  const Unsplash = require("unsplash-js").default;
+  const unsplash = new Unsplash({
+    applicationId:
+      "~",
+    secret: "~"
+  });
 
-unsplash.photos
-  .getRandomPhoto()
-  .then(r => r.json().then(json => console.log(json)));
+  unsplash.photos.getRandomPhoto({ collections: ["3178572"] }).then(r =>
+    r.json().then(json => {
+      const backgroundImage = `url(${json.urls.regular})`;
+      const description = `${
+        json.description !== null ? json.description : json.alt_description
+      }`;
+      const user = `by <a href="${json.user.links.html}">${
+        json.user.first_name
+      }</a>`;
+      const location = json.location ? `| ${json.location.name} ` : "";
+      const infos = `${description} ${location} <br/> ${user} `;
+      const background = `${json.color}22`;
+      const text = 0xffffff ^ json.color;
+
+      chrome.storage.local.set({
+        bg: {
+          backgroundInfo: { text, infos, background },
+          backgroundImage
+        }
+      });
+    })
+  );
+});

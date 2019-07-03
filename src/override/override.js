@@ -1,13 +1,19 @@
 import "uikit/dist/js/uikit";
 import "uikit/dist/js/uikit-icons";
-import "uikit/dist/css/uikit.min.css"
+import "uikit/dist/css/uikit.min.css";
 import "./override.css";
 
 document.addEventListener("DOMContentLoaded", function() {
-  chrome.storage.local.get(
-    "img",
-    r => (document.body.style.backgroundImage = `url(${r.img})`)
-  );
+  chrome.storage.local.get("bg", ({ bg }) => {
+    if (bg) {
+      document.body.style.backgroundImage = bg.backgroundImage;
+      document.getElementById("infos").innerHTML = bg.backgroundInfo.infos;
+      document.getElementById("background-info").style.background =
+        bg.backgroundInfo.background;
+      document.getElementById("background-info").style.color =
+        bg.backgroundInfo.text;
+    }
+  });
   const searchBar = document.getElementById("searchBar");
   const engines = {
     google: "https://www.google.com/search?q=",
@@ -41,44 +47,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     .appendChild(doc.getElementById("lista-instrucoes"));
 });
 
-function isItDark(imageSrc, callback) {
-  var fuzzy = 0.1;
-  var img = document.createElement("img");
-  img.src = imageSrc;
-  img.style.display = "none";
-  document.body.appendChild(img);
+/*
+const Unsplash = require("unsplash-js").default;
+const unsplash = new Unsplash({
+  applicationId:
+    "66c0dd89cb807527e1a2131bfddcfb459902fc59acba9b0bca39a59223b9f17b",
+  secret: "da794a4d8bfbe3ac98b166cdce174cec0afd185d52de15b589e1928291e71a4d"
+});
 
-  img.onload = function() {
-    // create canvas
-    var canvas = document.createElement("canvas");
-    canvas.width = this.width;
-    canvas.height = this.height;
-
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(this, 0, 0);
-
-    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var data = imageData.data;
-    var r, g, b, max_rgb;
-    var light = 0,
-      dark = 0;
-
-    for (var x = 0, len = data.length; x < len; x += 4) {
-      r = data[x];
-      g = data[x + 1];
-      b = data[x + 2];
-
-      max_rgb = Math.max(Math.max(r, g), b);
-      if (max_rgb < 128) dark++;
-      else light++;
-    }
-
-    var dl_diff = (light - dark) / (this.width * this.height);
-    if (dl_diff + fuzzy < 0) callback(true);
-    /* Dark. */ else callback(false); /* Not dark. */
-  };
-}
-chrome.storage.local.get(
-  "img",
-  r => (document.body.style.backgroundImage = `url(${r})`)
-);
+unsplash.photos.getRandomPhoto({ collections: ["3178572"] }).then(r =>
+  r.json().then(json => {
+    document.body.style.backgroundImage = `url(${json.urls.regular})`;
+    const description = `${
+      json.description !== null ? json.description : json.alt_description
+    }`;
+    const user = `by <a href="${json.user.links.html}">${
+      json.user.first_name
+    }</a>`;
+    const location = json.location ? `| ${json.location.name} ` : "";
+    document.getElementById(
+      "infos"
+    ).innerHTML = `${description} ${location} <br/> ${user} `;
+    document.getElementById("background-info").style.background = `${
+      json.color
+    }22`;
+    document.getElementById("background-info").style.color =
+      0xffffff ^ json.color;
+  })
+  );
+ */

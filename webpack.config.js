@@ -8,11 +8,19 @@ module.exports = {
     override: ".\\src\\override\\override.js",
     background: ".\\src\\bg\\background.js",
     browser_action: ".\\src\\browser_action\\browser_action.js"
-    },
-  
+  },
+  stats: {
+    errors: true,
+    errorDetails: true,
+    colors: true,
+    modules: false,
+    children: true,
+    chunks: false,
+    chunkModules: false
+  },
   output: {
-      path: path.resolve(__dirname, "dist"),
-      filename:"[name].js"
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js"
   },
   module: {
     rules: [
@@ -38,7 +46,11 @@ module.exports = {
     }),
     new CopyPlugin([
       { from: ".\\manifest.json", to: "./" },
-      { from: ".\\icons\\*", to: "./" }
+      { from: ".\\icons\\*", to: "./" },
+      {
+        from: path.resolve(__dirname, "src\\override\\override_manifest.json"),
+        to: "./"
+      }
     ])
   ]
 };

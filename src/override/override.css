@@ -1,6 +1,32 @@
 body {
-  background-repeat: round;
+  background-position: center;
+  background-size: cover;
 }
 .uk-search-large {
   width: 50%;
+}
+
+#background-info {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  padding: 1rem;
+}
+
+.uk-link,
+a {
+  font-size: 20px;
+}
+
+.uk-card-primary {
+  background-color: #1e87f080;
+}
+.uk-card-secondary {
+  background-color: #22222280;
+}
+.uk-card-default {
+  background-color: #ffffff80;
+}
+.uk-card-default a {
+  color: black;
 }
