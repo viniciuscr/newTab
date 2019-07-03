@@ -18,14 +18,20 @@ a {
   font-size: 20px;
 }
 
+.uk-card {
+  backdrop-filter: blur(5px);
+
+  border-radius: 6px;
+}
+
 .uk-card-primary {
-  background-color: #1e87f080;
+  background-color: #1e87f050;
 }
 .uk-card-secondary {
-  background-color: #22222280;
+  background-color: #22222250;
 }
 .uk-card-default {
-  background-color: #ffffff80;
+  background-color: #ffffff50;
 }
 .uk-card-default a {
   color: black;
