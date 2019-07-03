@@ -46,33 +46,3 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     .getElementById("minuto")
     .appendChild(doc.getElementById("lista-instrucoes"));
 });
-
-/*
-const Unsplash = require("unsplash-js").default;
-const unsplash = new Unsplash({
-  applicationId:
-    "66c0dd89cb807527e1a2131bfddcfb459902fc59acba9b0bca39a59223b9f17b",
-  secret: "da794a4d8bfbe3ac98b166cdce174cec0afd185d52de15b589e1928291e71a4d"
-});
-
-unsplash.photos.getRandomPhoto({ collections: ["3178572"] }).then(r =>
-  r.json().then(json => {
-    document.body.style.backgroundImage = `url(${json.urls.regular})`;
-    const description = `${
-      json.description !== null ? json.description : json.alt_description
-    }`;
-    const user = `by <a href="${json.user.links.html}">${
-      json.user.first_name
-    }</a>`;
-    const location = json.location ? `| ${json.location.name} ` : "";
-    document.getElementById(
-      "infos"
-    ).innerHTML = `${description} ${location} <br/> ${user} `;
-    document.getElementById("background-info").style.background = `${
-      json.color
-    }22`;
-    document.getElementById("background-info").style.color =
-      0xffffff ^ json.color;
-  })
-  );
- */
